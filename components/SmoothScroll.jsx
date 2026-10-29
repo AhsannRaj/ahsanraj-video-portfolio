@@ -7,10 +7,16 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const SmoothScroll = ({ children }) => {
-  if (typeof window !== "undefined") {
-  window.history.scrollRestoration = "manual";
-  window.scrollTo(0, 0);
-}
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Always start from the top when the page is reloaded/refreshed.
+    // This prevents the browser from restoring the previous scroll position.
+    if (typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo(0, 0);
+    }
+
     const isTouch =
       typeof window !== "undefined" &&
       (window.matchMedia("(hover: none), (pointer: coarse)").matches ||
@@ -25,10 +31,14 @@ const SmoothScroll = ({ children }) => {
       touchMultiplier: 1.5,
     });
 
-    // Expose the active Lenis instance globally so other components (e.g. the
-    // navbar menu) can request smooth scroll-to-section animations through
-    // the same engine that's already running. Falling back to native
-    // window.scrollTo would fight Lenis and feel jumpy.
+    // Force Lenis itself to start at the top.
+    lenis.scrollTo(0, {
+      immediate: true,
+    });
+
+    // Expose the active Lenis instance globally so other components
+    // (e.g. the navbar menu) can request smooth scroll-to-section
+    // animations through the same engine that's already running.
     if (typeof window !== "undefined") {
       window.__lenis = lenis;
     }
@@ -43,6 +53,7 @@ const SmoothScroll = ({ children }) => {
 
     return () => {
       lenis.destroy();
+
       if (typeof window !== "undefined" && window.__lenis === lenis) {
         delete window.__lenis;
       }
