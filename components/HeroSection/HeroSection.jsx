@@ -126,7 +126,7 @@ const HeroSection = () => {
     }, 1000);
 
     const t2 = setTimeout(() => {
-      setCurrentText("WELCOME TO MY PORTFOLIO");
+      setCurrentText("Ahsan Portfolio");
     }, 2000);
 
     return () => {
