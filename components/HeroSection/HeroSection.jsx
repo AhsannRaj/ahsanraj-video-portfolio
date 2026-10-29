@@ -139,7 +139,7 @@ const HeroSection = () => {
 
         <div aria-hidden="true" className="hero-video-overlay" />
 
-        <motion.div variants={containerVariants} initial="hidden" animate={loaderDone ? "visible" : "hidden"} className="absolute top-1/2 -translate-y-1/2 left-6 sm:left-12 lg:left-20 z-10 max-w-[480px] flex flex-col items-start text-left pointer-events-auto bg-black/45 backdrop-blur-sm p-6 rounded-2xl border border-white/10 lg:bg-transparent lg:backdrop-blur-none lg:p-0 lg:border-none">
+        <motion.div variants={containerVariants} initial="hidden" animate={loaderDone ? "visible" : "hidden"} className="absolute top-1/2 -translate-y-1/2 left-6 sm:left-12 lg:left-20 z-10 max-w-[480px] flex flex-col items-start text-left pointer-events-auto bg-black/10 backdrop-blur-[2px] p-6 rounded-2xl border border-white/10 lg:bg-transparent lg:backdrop-blur-none lg:p-0 lg:border-none">
           <motion.span variants={itemVariants} className="text-[10px] sm:text-xs font-semibold tracking-[0.22em] text-white/80 uppercase mb-2" style={{ fontFamily: "'Neue Montreal', 'Inter', sans-serif" }}>
             HELLO, I'M AHSAN
           </motion.span>
