@@ -13,37 +13,55 @@ const HorizontalScroll = () => {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     const wrapper = wrapperRef.current;
     const sticky = stickyRef.current;
     const text = textRef.current;
+
     if (!wrapper || !sticky || !text) return;
 
     const ctx = gsap.context(() => {
       const chars = text.querySelectorAll(".hs-char");
 
-      // Pin the section once it hits the top of the viewport, then drive the
-      // horizontal text animation entirely from scroll. The pin is held for
-      // the full distance the text needs to travel — i.e. however many extra
-      // viewport heights it takes to scroll the heading from off-screen right
-      // to fully off-screen left — so the animation never gets cut short by
-      // the next section / footer arriving early. The pin only releases once
-      // the animation has fully played, after which scrolling continues on
-      // to the next section. Using ScrollTrigger.pin instead of
-      // `position:sticky` because the parent wrapper has `overflow-x: hidden`,
-      // which breaks sticky behaviour in some browsers.
+      /*
+       * Start the heading from the CENTER of the viewport.
+       *
+       * left: 50% + xPercent: -50%
+       * means the center point of the complete text sits exactly
+       * at the center of the viewport.
+       *
+       * This prevents the mobile animation from beginning at the
+       * left edge of the screen.
+       */
+      gsap.set(text, {
+        left: "50%",
+        xPercent: -50,
+      });
+
       const getPinDistance = () => {
         const textWidth = text.scrollWidth;
         const viewport = window.innerWidth;
-        // Distance the text must translate left so its right edge clears the
-        // viewport. Kept tight (no extra multiplier) so the pin releases
-        // immediately after the text exits — otherwise the user keeps
-        // scrolling on an empty background before the next section appears.
-        const travel = Math.max(textWidth - viewport * 0.1, viewport);
+
+        // Distance required for the complete text to travel
+        // from its centered starting position to fully outside
+        // the left side of the viewport.
+        const travel = Math.max(
+          textWidth / 2 + viewport / 2,
+          viewport
+        );
+
         return travel;
       };
 
+      /*
+       * Move the text from its centered starting position
+       * toward the left as the user scrolls.
+       *
+       * xPercent is relative to the text's own width, while the
+       * initial -50% keeps its center aligned with the viewport.
+       */
       const scrollTween = gsap.to(text, {
         xPercent: -110,
         ease: "none",
@@ -59,6 +77,10 @@ const HorizontalScroll = () => {
         },
       });
 
+      /*
+       * Individual character animation.
+       * Preserved from the original implementation.
+       */
       chars.forEach((char) => {
         gsap.from(char, {
           yPercent: gsap.utils.random(-200, 200),
@@ -78,16 +100,39 @@ const HorizontalScroll = () => {
     return () => ctx.revert();
   }, []);
 
-  // Split text into words and chars while preserving spaces
+  // Split text into words and characters while preserving spaces.
   const renderText = () => {
     return TEXT.split(" ").map((word, wi, arr) => (
-      <span key={wi} className="hs-word" style={{ display: "inline-block", whiteSpace: "nowrap" }}>
+      <span
+        key={wi}
+        className="hs-word"
+        style={{
+          display: "inline-block",
+          whiteSpace: "nowrap",
+        }}
+      >
         {word.split("").map((char, ci) => (
-          <span key={ci} className="hs-char" style={{ display: "inline-block" }}>
+          <span
+            key={ci}
+            className="hs-char"
+            style={{
+              display: "inline-block",
+            }}
+          >
             {char}
           </span>
         ))}
-        {wi < arr.length - 1 && <span className="hs-char" style={{ display: "inline-block" }}>&nbsp;</span>}
+
+        {wi < arr.length - 1 && (
+          <span
+            className="hs-char"
+            style={{
+              display: "inline-block",
+            }}
+          >
+            &nbsp;
+          </span>
+        )}
       </span>
     ));
   };
@@ -95,7 +140,17 @@ const HorizontalScroll = () => {
   return (
     <section className="Horizontal" ref={wrapperRef}>
       <div className="hs-sticky" ref={stickyRef}>
-        <h3 className="Horizontal__text heading-xl" ref={textRef}>
+        <h3
+          className="Horizontal__text heading-xl"
+          ref={textRef}
+          style={{
+            position: "relative",
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: "max-content",
+            whiteSpace: "nowrap",
+          }}
+        >
           {renderText()}
         </h3>
       </div>
