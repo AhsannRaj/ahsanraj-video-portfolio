@@ -280,8 +280,7 @@ const HeroSection = () => {
               }}
               className="text-[#F5F1EA] text-[clamp(18px,6vw,36px)] sm:text-3xl lg:text-4xl font-extrabold tracking-[0.12em] sm:tracking-widest uppercase whitespace-nowrap"
               style={{
-                fontFamily:
-                  "'Neue Montreal', 'Inter', sans-serif",
+                fontFamily: "'Neue Montreal', 'Inter', sans-serif",
               }}
             >
               {currentText}
@@ -311,11 +310,7 @@ const HeroSection = () => {
           <video
             ref={videoRef}
             key={isMobile ? "mobile-video" : "desktop-video"}
-            src={
-              isMobile
-                ? "/hero-bg-mobile.mp4"
-                : "/hero-bg-video.mp4"
-            }
+            src={isMobile ? "/hero-bg-mobile.mp4" : "/hero-bg-video.mp4"}
             playsInline
             preload="metadata"
             onEnded={handleVideoEnded}
@@ -338,14 +333,13 @@ const HeroSection = () => {
           variants={containerVariants}
           initial="hidden"
           animate={loaderDone ? "visible" : "hidden"}
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[calc(100%-32px)] max-w-[480px] flex flex-col items-start text-left pointer-events-auto bg-black/10 backdrop-blur-[2px] p-6 rounded-2xl border border-white/10 lg:left-20 lg:translate-x-0 lg:bg-transparent lg:backdrop-blur-none lg:p-0 lg:border-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[calc(100%-32px)] max-w-[480px] flex flex-col items-start text-left pointer-events-auto bg-black/10 p-6 rounded-2xl border border-white/10 lg:left-20 lg:translate-x-0 lg:bg-transparent lg:p-0 lg:border-none"
         >
           <motion.span
             variants={itemVariants}
             className="text-[10px] sm:text-xs font-semibold tracking-[0.22em] text-white/80 uppercase mb-2"
             style={{
-              fontFamily:
-                "'Neue Montreal', 'Inter', sans-serif",
+              fontFamily: "'Neue Montreal', 'Inter', sans-serif",
             }}
           >
             HELLO, I'M AHSAN
@@ -363,8 +357,7 @@ const HeroSection = () => {
             variants={itemVariants}
             className="text-4xl sm:text-5xl lg:text-[3.2rem] font-black uppercase leading-[1.05] tracking-tight text-white mb-6 drop-shadow-[0_2px_18px_rgba(0,0,0,0.55)]"
             style={{
-              fontFamily:
-                "'AeonikBold', 'Neue Montreal', sans-serif",
+              fontFamily: "'AeonikBold', 'Neue Montreal', sans-serif",
             }}
           >
             FRONTEND WEB DEVELOPER <br />
@@ -377,8 +370,7 @@ const HeroSection = () => {
             variants={itemVariants}
             className="text-xs sm:text-sm text-white/75 leading-relaxed mb-8 max-w-[40ch] drop-shadow-[0_1px_10px_rgba(0,0,0,0.6)]"
             style={{
-              fontFamily:
-                "'Neue Montreal', 'Inter', sans-serif",
+              fontFamily: "'Neue Montreal', 'Inter', sans-serif",
             }}
           >
             I design clean interfaces, build responsive websites, and help
@@ -394,8 +386,7 @@ const HeroSection = () => {
               onClick={handleScrollToWork}
               className="px-6 py-3 bg-white text-black hover:bg-white/90 rounded-full flex items-center gap-2 text-xs font-semibold tracking-wide transition-all duration-200 active:scale-95 shadow-lg"
               style={{
-                fontFamily:
-                  "'Neue Montreal', 'Inter', sans-serif",
+                fontFamily: "'Neue Montreal', 'Inter', sans-serif",
               }}
             >
               <span>View My Work</span>
@@ -407,12 +398,7 @@ const HeroSection = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <line
-                  x1="7"
-                  y1="17"
-                  x2="17"
-                  y2="7"
-                />
+                <line x1="7" y1="17" x2="17" y2="7" />
                 <polyline points="7 7 17 7 17 17" />
               </svg>
             </a>
@@ -424,8 +410,7 @@ const HeroSection = () => {
               download="Ahsan_Ali_CV_Pakistan.pdf"
               className="text-xs font-semibold text-white hover:text-white/75 flex items-center gap-1.5 pb-0.5 border-b border-white/70 transition-all drop-shadow-[0_1px_8px_rgba(0,0,0,0.5)]"
               style={{
-                fontFamily:
-                  "'Neue Montreal', 'Inter', sans-serif",
+                fontFamily: "'Neue Montreal', 'Inter', sans-serif",
               }}
             >
               <span>Download CV</span>
@@ -437,12 +422,7 @@ const HeroSection = () => {
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <line
-                  x1="12"
-                  y1="5"
-                  x2="12"
-                  y2="19"
-                />
+                <line x1="12" y1="5" x2="12" y2="19" />
                 <polyline points="19 12 12 19 5 12" />
               </svg>
             </a>
@@ -536,8 +516,7 @@ const HeroSection = () => {
           onClick={togglePlay}
           className="absolute bottom-8 right-8 sm:bottom-12 sm:right-12 z-20 flex items-center gap-3 bg-black/45 backdrop-blur-md border border-white/35 hover:border-white/70 px-4 py-2.5 rounded-full text-white hover:bg-white hover:text-black transition-all active:scale-95 shadow-lg group cursor-pointer"
           style={{
-            fontFamily:
-              "'Neue Montreal', 'Inter', sans-serif",
+            fontFamily: "'Neue Montreal', 'Inter', sans-serif",
           }}
         >
           <span className="w-7 h-7 rounded-full bg-white/10 group-hover:bg-black/10 flex items-center justify-center transition-colors">
