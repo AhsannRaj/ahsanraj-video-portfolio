@@ -7,9 +7,10 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const SmoothScroll = ({ children }) => {
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
+  if (typeof window !== "undefined") {
+  window.history.scrollRestoration = "manual";
+  window.scrollTo(0, 0);
+}
     const isTouch =
       typeof window !== "undefined" &&
       (window.matchMedia("(hover: none), (pointer: coarse)").matches ||
