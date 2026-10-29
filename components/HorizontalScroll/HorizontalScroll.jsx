@@ -26,50 +26,41 @@ const HorizontalScroll = () => {
       const chars = text.querySelectorAll(".hs-char");
 
       /*
-       * Start the heading from the CENTER of the viewport.
+       * IMPORTANT:
+       * The FIRST character ("I") starts at the CENTER
+       * of the viewport.
        *
-       * left: 50% + xPercent: -50%
-       * means the center point of the complete text sits exactly
+       * We do NOT center the whole text.
+       * Instead, the LEFT edge of the text is positioned
        * at the center of the viewport.
-       *
-       * This prevents the mobile animation from beginning at the
-       * left edge of the screen.
        */
       gsap.set(text, {
         left: "50%",
-        xPercent: -50,
+        xPercent: 0,
       });
 
       const getPinDistance = () => {
         const textWidth = text.scrollWidth;
         const viewport = window.innerWidth;
 
-        // Distance required for the complete text to travel
-        // from its centered starting position to fully outside
-        // the left side of the viewport.
-        const travel = Math.max(
-          textWidth / 2 + viewport / 2,
-          viewport
-        );
-
-        return travel;
+        /*
+         * The text starts with "I" at the viewport center.
+         * It then needs to travel all the way left until
+         * the complete sentence has exited the viewport.
+         */
+        return Math.max(textWidth + viewport * 0.5, viewport);
       };
 
-      /*
-       * Move the text from its centered starting position
-       * toward the left as the user scrolls.
-       *
-       * xPercent is relative to the text's own width, while the
-       * initial -50% keeps its center aligned with the viewport.
-       */
       const scrollTween = gsap.to(text, {
-        xPercent: -110,
+        x: () => -(text.scrollWidth + window.innerWidth * 0.5),
         ease: "none",
+
         scrollTrigger: {
           trigger: sticky,
           start: "top top",
           end: () => "+=" + getPinDistance(),
           scrub: 0.5,
+
           pin: sticky,
           pinSpacing: true,
           anticipatePin: 1,
@@ -79,13 +70,13 @@ const HorizontalScroll = () => {
 
       /*
        * Individual character animation.
-       * Preserved from the original implementation.
        */
       chars.forEach((char) => {
         gsap.from(char, {
           yPercent: gsap.utils.random(-200, 200),
           rotation: gsap.utils.random(-20, 20),
           ease: "back.out(1.2)",
+
           scrollTrigger: {
             trigger: char,
             containerAnimation: scrollTween,
@@ -100,7 +91,10 @@ const HorizontalScroll = () => {
     return () => ctx.revert();
   }, []);
 
-  // Split text into words and characters while preserving spaces.
+  /*
+   * Split text into words and characters
+   * while preserving spaces.
+   */
   const renderText = () => {
     return TEXT.split(" ").map((word, wi, arr) => (
       <span
@@ -146,7 +140,7 @@ const HorizontalScroll = () => {
           style={{
             position: "relative",
             left: "50%",
-            transform: "translateX(-50%)",
+            transform: "none",
             width: "max-content",
             whiteSpace: "nowrap",
           }}
